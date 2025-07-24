@@ -13,9 +13,17 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Create config.js from secret
-        run: echo "const API_KEY = '${{ secrets.WEATHER_API_KEY }}';" > config.js
-
-      - name: Deploy (example step)
+        env:
+          WEATHER_API_KEY: ${{ secrets.WEATHER_API_KEY }}
         run: |
-          echo "Deploy your app here."
-          # For GitHub Pages, you might use peaceiris/actions-gh-pages or similar
+          if [ -z "$WEATHER_API_KEY" ]; then
+            echo "Error: WEATHER_API_KEY secret is not set."
+            exit 1
+          fi
+          echo "const API_KEY = '$WEATHER_API_KEY';" > config.js
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
