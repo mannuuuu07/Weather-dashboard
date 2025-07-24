@@ -1,0 +1,3 @@
+# Ignore config.js so API keys are never committed
+config.js
+
