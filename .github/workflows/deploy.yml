@@ -26,6 +26,13 @@ jobs:
             exit 1
           fi
           echo "const API_KEY = '$WEATHER_API_KEY';" > config.js
+          # If using a publish directory, also copy config.js there
+          if [ -d "./dist" ]; then
+            cp config.js ./dist/
+          fi
+          if [ -d "./build" ]; then
+            cp config.js ./build/
+          fi
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
