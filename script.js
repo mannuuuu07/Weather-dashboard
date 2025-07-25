@@ -1,5 +1,6 @@
 // API_KEY is now imported from config.js
 let isCelsius = true;
+const API_KEY = "d645085500dcdaf7d85109f624d0fed2";
 
 function getWeather(city = "") {
   if (!city) {
